@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Equation Solver and Grade Converter</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #333; }
+        .result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Quadratic Equation Solver</h1>
+    <p>Enter coefficients a, b, and c:</p>
+    <input type="number" id="a" placeholder="a" required>
+    <input type="number" id="b" placeholder="b" required>
+    <input type="number" id="c" placeholder="c" required>
+    <button onclick="solveQuadratic()">Solve</button>
+    <button onclick="resetQuadratic()">Reset</button>
+
+    <div class="result" id="quadraticResult"></div>
+
+    <h1>Grade Converter</h1>
+    <p>Enter a score (0-100):</p>
+    <input type="number" id="score" placeholder="Score" required>
+    <button onclick="convertGrade()">Convert</button>
+    <button onclick="resetGrade()">Reset</button>
+
+    <div class="result" id="gradeResult"></div>
+
+    <script>
+        function solveQuadratic() {
+            let a = parseFloat(document.getElementById('a').value);
+            let b = parseFloat(document.getElementById('b').value);
+            let c = parseFloat(document.getElementById('c').value);
+            let discriminant = b * b - 4 * a * c;
+            let resultText = '';
+
+            if (discriminant > 0) {
+                let root1 = (-b + Math.sqrt(discriminant)) / (2 * a);
+                let root2 = (-b - Math.sqrt(discriminant)) / (2 * a);
+                resultText = `Roots are real and different: x1 = ${root1}, x2 = ${root2}`;
+            } else if (discriminant === 0) {
+                let root = -b / (2 * a);
+                resultText = `Root is real and repeated: x = ${root}`;
+            } else {
+                resultText = `Roots are complex and different.`;
+            }
+
+            document.getElementById('quadraticResult').innerText = resultText;
+        }
+
+        function convertGrade() {
+            let score = parseFloat(document.getElementById('score').value);
+            let resultText = '';
+
+            if (score >= 85 && score <= 100) resultText = 'Grade: A+';
+            else if (score >= 75 && score <= 84) resultText = 'Grade: A';
+            else if (score >= 65 && score <= 74) resultText = 'Grade: B+';
+            else if (score >= 60 && score <= 64) resultText = 'Grade: B';
+            else if (score >= 55 && score <= 59) resultText = 'Grade: C+';
+            else if (score >= 50 && score <= 54) resultText = 'Grade: C';
+            else if (score >= 0 && score <= 49) resultText = 'Grade: D';
+            else resultText = 'Invalid score. Please enter a number between 0 and 100.';
+
+            document.getElementById('gradeResult').innerText = resultText;
+        }
+
+        function resetQuadratic() {
+            document.getElementById('a').value = '';
+            document.getElementById('b').value = '';
+            document.getElementById('c').value = '';
+            document.getElementById('quadraticResult').innerText = '';
+        }
+
+        function resetGrade() {
+            document.getElementById('score').value = '';
+            document.getElementById('gradeResult').innerText = '';
+        }
+    </script>
+
+</body>
+</html>
+
